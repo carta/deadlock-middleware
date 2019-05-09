@@ -12,6 +12,7 @@ workflows:
             filters:
               branches:
                 only: master
+            context: org-Global
 
 
 jobs:
