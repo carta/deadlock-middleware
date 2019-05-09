@@ -1,0 +1,68 @@
+version: 2
+
+
+workflows:
+  version: 2
+  ci-pipeline:
+    jobs:
+      - test
+      - publish:
+            requires:
+              - test
+            filters:
+              branches:
+                only: master
+
+
+jobs:
+  publish:
+    working_directory: ~/app/
+    docker:
+      - image: circleci/python:3.7.2
+    steps:
+      - checkout
+      - run:
+          name: Install cloudsmith
+          command: sudo pip install --upgrade cloudsmith-cli
+      - run:
+          name: Publish package - cloudsmith
+          command: python setup.py bdist_wheel && cloudsmith push python carta/pip dist/*.whl
+
+  test:
+    working_directory: ~/app/
+    docker:
+      - image: circleci/python:3.7.2
+    steps:
+      - checkout
+      - restore_cache:
+          key: pip-dependencies-{{ checksum "requirements/dev.txt" }}
+      - run:
+          name: Installing dependencies
+          command: |
+            python3 -m venv .venv/
+            source .venv/bin/activate
+            pip install -r requirements/dev.txt
+      - save_cache:
+          key: pip-dependencies-{{ checksum "requirements/dev.txt" }}
+          paths:
+            - ".venv/"
+      - run:
+          name: Linting
+          command: |
+            source .venv/bin/activate
+            make lint
+      - run:
+          name: Checking for consistent formatting
+          command: |
+            source .venv/bin/activate
+            make black
+      - run:
+          name: Check type hints
+          command: |
+            source .venv/bin/activate
+            make typecheck
+      - run:
+          name: Running tests
+          command: |
+            source .venv/bin/activate
+            make test
