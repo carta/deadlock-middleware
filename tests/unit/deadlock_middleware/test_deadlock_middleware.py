@@ -1,6 +1,6 @@
 import pytest
 
-from django.db import OperationalError
+from django.db import OperationalError, transaction
 from django.http import HttpRequest
 from django.conf import settings
 
@@ -22,10 +22,9 @@ def test_call_adds_retry_count():
 
 
 def test_process_view_disables_if_non_atomic_requests_set():
+    @transaction.non_atomic_requests
     def view_func(request, *args, **kwargs):
         return request
-
-    view_func._non_atomic_requests = {1}
 
     request = HttpRequest()
 
@@ -37,8 +36,6 @@ def test_process_view_disables_if_non_atomic_requests_set():
 def test_process_view_enables_if_non_atomic_requests_not_set():
     def view_func(request, *args, **kwargs):
         return request
-
-    view_func._non_atomic_requests = set()
 
     request = HttpRequest()
 
