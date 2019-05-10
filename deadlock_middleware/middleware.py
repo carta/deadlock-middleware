@@ -32,7 +32,7 @@ class DeadlockRetryMiddleware:
 
         total_retry_attempts = getattr(settings, "DEADLOCK_RETRY_ATTEMPTS", 2)
         if request.deadlock_retry_attempt < total_retry_attempts:
-            logger.warning('deadlock detected at {} - retrying'.format(request.path))
+            logger.warning("deadlock detected at {} - retrying".format(request.path))
 
             request.deadlock_retry_attempt += 1
 

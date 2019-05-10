@@ -48,7 +48,7 @@ def test_process_exception_increments_deadlock_retry_count_on_deadlock():
     request.disable_deadlock_retry = False
     request.deadlock_retry_attempt = 1
 
-    exception = OperationalError('deadlock detected')
+    exception = OperationalError("deadlock detected")
 
     result = middleware.process_exception(request, exception)
 
@@ -62,7 +62,7 @@ def test_process_exception_returns_none_if_attempts_exceeded():
 
     settings.DEADLOCK_RETRY_ATTEMPTS = 10
 
-    exception = OperationalError('deadlock detected')
+    exception = OperationalError("deadlock detected")
 
     result = middleware.process_exception(request, exception)
 
@@ -74,7 +74,7 @@ def test_process_exception_returns_none_if_not_operational_error():
     request.disable_deadlock_retry = False
     request.deadlock_retry_attempt = 1
 
-    exception = Exception('not a deadlock')
+    exception = Exception("not a deadlock")
 
     result = middleware.process_exception(request, exception)
 
@@ -86,7 +86,7 @@ def test_process_exception_returns_none_if_not_deadlock_error():
     request.disable_deadlock_retry = False
     request.deadlock_retry_attempt = 1
 
-    exception = OperationalError('not a deadlock')
+    exception = OperationalError("not a deadlock")
 
     result = middleware.process_exception(request, exception)
 
@@ -98,7 +98,7 @@ def test_process_exception_returns_none_if_retry_disabled():
     request.disable_deadlock_retry = True
     request.deadlock_retry_attempt = 1
 
-    exception = OperationalError('deadlock detected')
+    exception = OperationalError("deadlock detected")
 
     result = middleware.process_exception(request, exception)
 
