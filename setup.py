@@ -60,8 +60,8 @@ def reqs(*f):
 setup(
     name="deadlock-middleware",
     version="0.0.2",
-    description="A middleware to automatically retry requests in the case of a deadlock.",
-    license="MIT license",
+    description="A django middleware to automatically retry requests in the case of a deadlock.",
+    license="Apache Software License",
     author="Carson Crane",
     author_email="carson.crane@carta.com",
     packages=["deadlock_middleware"],
@@ -80,5 +80,6 @@ setup(
         "Framework :: Django",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.5.3",
+        "OSI Approved :: Apache Software License",
     ],
 )
