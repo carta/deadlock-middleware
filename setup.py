@@ -59,7 +59,7 @@ def reqs(*f):
 
 setup(
     name="deadlock-middleware",
-    version="0.0.1",
+    version="0.0.2",
     description="A middleware to automatically retry requests in the case of a deadlock.",
     license="MIT license",
     author="Carson Crane",
