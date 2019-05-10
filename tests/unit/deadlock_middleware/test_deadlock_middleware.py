@@ -8,6 +8,7 @@ from deadlock_middleware import DeadlockRetryMiddleware
 def get_response(request):
     return request
 
+
 middleware = DeadlockRetryMiddleware(get_response)
 
 
@@ -28,7 +29,7 @@ def test_process_view_disables_if_non_atomic_requests_set():
 
     middleware.process_view(request, view_func, [], {})
 
-    assert request.disable_deadlock_retry == True
+    assert request.disable_deadlock_retry is True
 
 
 def test_process_view_enables_if_non_atomic_requests_not_set():
@@ -39,7 +40,7 @@ def test_process_view_enables_if_non_atomic_requests_not_set():
 
     middleware.process_view(request, view_func, [], {})
 
-    assert request.disable_deadlock_retry == False
+    assert request.disable_deadlock_retry is False
 
 
 def test_process_exception_increments_deadlock_retry_count_on_deadlock():
