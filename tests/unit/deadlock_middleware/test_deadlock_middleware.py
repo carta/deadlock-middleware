@@ -1,5 +1,3 @@
-import pytest
-
 from django.db import OperationalError, transaction
 from django.http import HttpRequest
 from django.conf import settings
