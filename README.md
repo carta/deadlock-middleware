@@ -1,7 +1,7 @@
 # deadlock-middleware
 A middleware to automatically retry requests in the case of a deadlock.
 
-Requires: Django >= 11, postgres as database connection, ATOMIC_REQUESTS enabled.
+Requires: Django >= 1.11, postgres as database connection, ATOMIC_REQUESTS enabled.
 
 Deadlocks are a common problem with web applications. A deadlock occurs when multiple agents are waiting on locks held by the each other in a way that cannot be resolved. As an example:
 
