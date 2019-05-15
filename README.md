@@ -11,9 +11,9 @@ A --> B
 B --> A
 ```
 
-Transaction 1 is waiting on B which is locked by transaction 2. When transaction 2 tries to lock A, these transactions are in a deadlock and are both waiting on eachother. The deadlock detection in the database will kill transaction 2 at this point.
+Transaction 1 locks A, transaction 2 locks B. When transaction 1 tries to lock B, it is waiting on B which is locked by transaction 2. When transaction 2 tries to lock A, these transactions enter a deadlock where there is no way forward. Both transactions are both waiting on eachother. The deadlock detection in the database will kill one of the two deadlocks at this point.
 
-The simple solution for transaction 2 is to simply retry its transaction now. The resulting order will be:
+The simple solution for the killed transaction is to simply retry. If transaction 2 is killed, the resulting order will be:
 
 ```
 T1 | T2
@@ -23,11 +23,9 @@ B -->
   --> A
 ```
 
-From the MySQL docs:
+[From the MySQL docs](https://dev.mysql.com/doc/refman/8.0/en/innodb-deadlocks-handling.html):
 
 > Deadlocks are a classic problem in transactional databases, but they are not dangerous unless they are so frequent that you cannot run certain transactions at all. Normally, you must write your applications so that they are always prepared to re-issue a transaction if it gets rolled back because of a deadlock.
-
-https://dev.mysql.com/doc/refman/8.0/en/innodb-deadlocks-handling.html
 
 This middleware automatically retries requests that fail due to a deadlock.
 
