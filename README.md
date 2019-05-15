@@ -11,7 +11,7 @@ A --> B
 B --> A
 ```
 
-Transaction 1 locks A, transaction 2 locks B. When transaction 1 tries to lock B, it is waiting on B which is locked by transaction 2. When transaction 2 tries to lock A, these transactions enter a deadlock where there is no way forward. Both transactions are both waiting on eachother. The deadlock detection in the database will kill one of the two deadlocks at this point.
+Transaction 1 locks A, transaction 2 locks B. When transaction 1 tries to lock B, it waits for transaction 2 which holds the lock. When transaction 2 tries to lock A, these transactions enter a deadlock where both transactions are both waiting on eachother. The deadlock detection in the database will kill one of the two transactions at this point.
 
 The simple solution for the killed transaction is to simply retry. If transaction 2 is killed, the resulting order will be:
 
