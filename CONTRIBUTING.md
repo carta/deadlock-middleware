@@ -1,6 +1,6 @@
 # Contributing
 
-To get started, <a href="https://www.clahub.com/agreements/carta/flipper-client">sign the Contributor License Agreement</a>.
+To get started, <a href="https://www.clahub.com/agreements/carta/deadlock-middleware">sign the Contributor License Agreement</a>.
 
 When contributing to this repository, please first discuss the change you wish to make via issue,
 email, or any other method with the owners of this repository before making a change. 
